@@ -20,11 +20,12 @@ const quizData = [
 const questionContainer = document.getElementById("question-container");
 const nextButton = document.getElementById("next-button");
 const resultContainer = document.getElementById("result-container");
+const restartButton = document.getElementById("restart-button");
 
 let currentQuestionIndex = 0;
 let score = 0;
 
-function loadQuestion() {
+const loadQuestion = () => {
     const currentQuestion = quizData[currentQuestionIndex];
     questionContainer.innerHTML = `
         <p>${currentQuestion.question}</p>
@@ -37,19 +38,18 @@ function loadQuestion() {
             `).join('')}
         </ul>
     `;
-}
+};
 
-
-function checkAnswer(selectedOption) {
+const checkAnswer = (selectedOption) => {
     const currentQuestion = quizData[currentQuestionIndex];
     if (selectedOption === currentQuestion.correctAnswer) {
         score++;
     }
-}
+};
 
-function showResult() {
+const showResult = () => {
     resultContainer.innerHTML = `Your score: ${score} out of ${quizData.length}`;
-}
+};
 
 nextButton.addEventListener("click", () => {
     const selectedOption = document.querySelector('input[name="option"]:checked');
@@ -61,6 +61,7 @@ nextButton.addEventListener("click", () => {
         } else {
             showResult();
             nextButton.style.display = "none";
+            restartButton.style.display = "block";
         }
     } else {
         alert("Please select an option");
@@ -70,38 +71,13 @@ nextButton.addEventListener("click", () => {
 // Initial load
 loadQuestion();
 
-
-
-
-
-
-
-// ... Your existing JavaScript code ...
-
-const restartButton = document.getElementById("restart-button");
-
-function restartQuiz() {
+const restartQuiz = () => {
     currentQuestionIndex = 0;
     score = 0;
     nextButton.style.display = "block";
     restartButton.style.display = "none";
     resultContainer.innerHTML = "";
     loadQuestion();
-}
+};
 
 restartButton.addEventListener("click", restartQuiz);
-
-// ... Your existing JavaScript code ...
-
-nextButton.addEventListener("click", () => {
-    // ... Your existing "Next" button logic ...
-
-    if (currentQuestionIndex === quizData.length) {
-        showResult();
-        nextButton.style.display = "none";
-        restartButton.style.display = "block";
-    }
-});
-
-// ... Your existing JavaScript code ...
-
